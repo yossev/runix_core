@@ -3,6 +3,8 @@ package api
 import (
 	"encoding/json"
 	"net/http"
+
+	"github.com/yossev/runix_core/internal/executor"
 )
 
 // HANDLER HANDLES THE REQURESTS AND SENDS THEM TO THE EXECUTOR
@@ -17,6 +19,7 @@ func ExecuteHandler(w http.ResponseWriter, r *http.Request) {
 
 	if err := json.NewDecoder(r.Body).Decode(&request); err != nil {
 		http.Error(w, "Invalid Request", http.StatusBadRequest)
+		//LogError(err)
 		return
 	}
 
@@ -24,7 +27,9 @@ func ExecuteHandler(w http.ResponseWriter, r *http.Request) {
 
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
+		//LogError(err)
 		return
 	}
+	//LogInfo(result)
 	json.NewEncoder(w).Encode(result)
 }

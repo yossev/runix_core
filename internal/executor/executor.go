@@ -28,7 +28,7 @@ func ExecuteCode(code, language string) (string, error) {
 		return "", fmt.Errorf("Invalid language %s", language)
 	}
 
-	// Run the CMD using bash
+	// Run the CMD using Docker
 	var out, stderr bytes.Buffer
 	cmd.Stderr = &stderr
 	cmd.Stdout = &out
@@ -40,12 +40,15 @@ func ExecuteCode(code, language string) (string, error) {
 	return out.String(), nil
 }
 
-func getCommand(language string, filepath string) *exec.Cmd {
+// Init a Docker Image for each execution, clear it after the execution process
+func getCommand(language string, filePath string) *exec.Cmd {
 	switch language {
 	case "python":
-		return exec.Command("python3", filepath)
+		// Using the "python:3.9-slim" Docker image , mount the codefile and then execute it witht he corrrect image
+		return exec.Command("docker", "run", "--rm", "-v", fmt.Sprintf("%s:/code/script.py", filePath), "python:3.9-slim", "python", "/code/script.py")
 	case "bash":
-		return exec.Command("bash", filepath)
+		// Using a "bash" Docker image
+		return exec.Command("docker", "run", "--rm", "-v", fmt.Sprintf("%s:/code/script.sh", filePath), "bash", "bash", "/code/script.sh")
 	default:
 		return nil
 	}
@@ -73,7 +76,7 @@ func createTempFile(code, language string) (string, error) {
 var letters = []rune("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ")
 
 func generateRandomString() string {
-	b := make([]rune, 5)
+	b := make([]rune, 4)
 	for i := range b {
 		b[i] = letters[rand.Intn(len(letters))]
 	}
