@@ -1,12 +1,18 @@
 package api
 
 import (
+	"runix/internal/handlers"
+
 	"github.com/gorilla/mux"
 )
 
 func NewRouter() *mux.Router {
-	router := mux.NewRouter()
-	// CRUD Operations that the router will handle
-	router.HandleFunc("/execute", ExecuteHandler).Methods("POST")
-	return router
+	r := mux.NewRouter()
+	SetupRoutes(r)
+	return r
+}
+
+func SetupRoutes(r *mux.Router) {
+	r.HandleFunc("/execute", handlers.ExecuteHandler).Methods("POST")
+
 }

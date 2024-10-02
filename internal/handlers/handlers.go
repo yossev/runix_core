@@ -1,25 +1,28 @@
-package api
+package handlers
 
 import (
 	"encoding/json"
+	"fmt"
 	"net/http"
 
-	"github.com/yossev/runix_core/internal/executor"
+	"runix/internal/executor"
+	"runix/internal/utils"
 )
 
 // HANDLER HANDLES THE REQURESTS AND SENDS THEM TO THE EXECUTOR
 
 type ExecuteRequest struct {
 	Code     string `json:"code"`
-	Language string `json:"langauge`
+	Language string `json:"language"`
 }
 
 func ExecuteHandler(w http.ResponseWriter, r *http.Request) {
+	fmt.Println("Received Request") //Debugging
 	var request ExecuteRequest
 
 	if err := json.NewDecoder(r.Body).Decode(&request); err != nil {
 		http.Error(w, "Invalid Request", http.StatusBadRequest)
-		//LogError(err)
+		utils.LogError(err)
 		return
 	}
 
@@ -27,9 +30,10 @@ func ExecuteHandler(w http.ResponseWriter, r *http.Request) {
 
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
-		//LogError(err)
+		utils.LogError(err)
 		return
 	}
-	//LogInfo(result)
+	utils.LogInfo(result)
+	w.Header().Set("Content-Type", "application/json")
 	json.NewEncoder(w).Encode(result)
 }

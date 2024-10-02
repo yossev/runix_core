@@ -6,7 +6,7 @@ import (
 	"log"
 	"net/http"
 
-	"github.com/yossev/runix_core/internal/api"
+	"runix/internal/api"
 )
 
 func main() {

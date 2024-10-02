@@ -3,7 +3,7 @@ package executor_test
 import (
 	"testing"
 
-	"github.com/yossev/runix_core/internal/executor"
+	"runix/internal/executor"
 )
 
 func TestExecuteCode(t *testing.T) {
