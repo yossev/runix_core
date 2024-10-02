@@ -32,12 +32,12 @@ The main functionality is implemented in the `executor` package:
 
 ## TODO List
 
-1. Add support for more programming languages (e.g., JavaScript, Ruby, Java)
-2. Implement input handling for interactive programs
+1. Add support for more programming languages (e.g., JavaScript, Ruby, Java) [DONE AND MORE TO BE ADDED]
+ x 2. Implement input handling for interactive programs
 3. Add a timeout mechanism to prevent long-running executions [DONE]
 4. Create an API endpoint to receive code execution requests
-5. Implement proper error handling and logging
-6. Add unit tests for the executor package
+5. Implement proper error handling and logging [DONE]
+6. Add unit tests for the executor package [DONE]
 7. Set up CI/CD pipeline for automated testing and deployment
 8. Create a user interface for code submission and result display
 9. Implement rate limiting to prevent abuse
@@ -45,8 +45,7 @@ The main functionality is implemented in the `executor` package:
 11. Implement a sandboxing solution for additional security (e.g., gVisor)
 12. Add support for file I/O within the container (with proper restrictions)
 13. Implement a queuing system for handling multiple execution requests
-14. Add support for custom Docker images for specific execution environments
-15. Implement a cleanup mechanism to remove unused Docker images and containers
+14. Implement a cleanup mechanism to remove unused Docker images and containers
 
 ## Getting Started
 

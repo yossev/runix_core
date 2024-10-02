@@ -7,6 +7,7 @@ import (
 	"net/http"
 
 	"runix/internal/api"
+	"runix/internal/utils"
 )
 
 func main() {
@@ -18,5 +19,7 @@ func main() {
 
 	if err := http.ListenAndServe(port, router); err != nil {
 		log.Fatalf("Error starting server", err)
+		utils.LogError(err)
+
 	}
 }
