@@ -47,14 +47,3 @@ The main functionality is implemented in the `executor` package:
 13. Implement a queuing system for handling multiple execution requests
 14. Implement a cleanup mechanism to remove unused Docker images and containers
 
-## Getting Started
-
-(Add instructions for setting up and running the project locally)
-
-## Contributing
-
-(Add guidelines for contributing to the project)
-
-## License
-
-(Add license information for your project)
