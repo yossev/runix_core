@@ -49,6 +49,14 @@ func GetCommand(language, code string) *exec.Cmd {
 		return exec.Command(baseCmd[0], append(baseCmd[1:], "runix-executor", "timeout", "3s", "bash", "-c", code)...)
 	case "javascript":
 		return exec.Command(baseCmd[0], append(baseCmd[1:], "runix-executor", "timeout", "3s", "node", "-e", code)...)
+	case "cpp":
+		cppCode := fmt.Sprintf(`#include <iostream>
+int main() {
+%s
+return 0;
+}`, code)
+		compileAndRun := fmt.Sprintf(`echo '%s' > /tmp/code.cpp && g++ -o /tmp/code /tmp/code.cpp && /tmp/code`, cppCode)
+		return exec.Command(baseCmd[0], append(baseCmd[1:], "runix-executor", "timeout", "5s", "sh", "-c", compileAndRun)...)
 	default:
 		return nil
 	}

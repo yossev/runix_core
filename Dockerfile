@@ -1,9 +1,9 @@
-# Use a base image with Python, Bash, and Node.js
+# Use a base image with Python and Bash
 FROM python:3.9-slim
 
-# Install Bash, Node.js, and clean up in the same layer to reduce image size
+# Install necessary tools and Node.js
 RUN apt-get update && \
-    apt-get install -y bash curl && \
+    apt-get install -y --no-install-recommends bash curl g++ && \
     curl -fsSL https://deb.nodesource.com/setup_14.x | bash - && \
     apt-get install -y nodejs && \
     apt-get clean && \
