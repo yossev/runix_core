@@ -40,6 +40,8 @@ func GetCommand(language, code string) *exec.Cmd {
 		"--memory-swap", "100m", // Disable swap
 		"--cpus", "0.5", // Limit to 0.5 CPU cores
 		"--pids-limit", "50", // Limit number of processes/threads
+		"--ulimit", "nproc=50:50", // Limit the number of processes
+		"--ulimit", "nofile=256:256", // Limit the number of open files, prevent with resource exhaustion attacks
 	}
 
 	switch language {
