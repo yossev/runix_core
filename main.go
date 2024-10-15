@@ -7,7 +7,10 @@ import (
 	"net/http"
 
 	"runix/internal/api"
+	"runix/internal/handlers"
 	"runix/internal/utils"
+
+	"github.com/gorilla/mux"
 )
 
 func main() {
@@ -22,4 +25,8 @@ func main() {
 		utils.LogError(err)
 
 	}
+}
+
+func SetupRoutes(r *mux.Router) {
+	r.HandleFunc("/execute", handlers.ExecuteHandler).Methods("POST")
 }

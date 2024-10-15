@@ -2,9 +2,9 @@ package handlers
 
 import (
 	"encoding/json"
-	"fmt"
 	"net/http"
 
+	"runix/internal/api"
 	"runix/internal/executor"
 	"runix/internal/utils"
 )
@@ -16,14 +16,20 @@ type ExecuteRequest struct {
 	Language string `json:"language"`
 }
 
+var limiter *api.RateLimiter
+
 func ExecuteHandler(w http.ResponseWriter, r *http.Request) {
-	fmt.Println("Received Request") //Debugging
 	var request ExecuteRequest
 
 	if err := json.NewDecoder(r.Body).Decode(&request); err != nil {
 		http.Error(w, "Invalid Request", http.StatusBadRequest)
 		utils.LogError(err)
 		return
+	}
+
+	apiKey := r.Header.Get("X-API-KEY")
+	if !limiter.Allow(apiKey) {
+		http.Error(w, "rate limit exceeded.", http.StatusTooManyRequests)
 	}
 
 	result, err := executor.ExecuteCode(request.Code, request.Language)
