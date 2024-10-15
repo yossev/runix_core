@@ -40,7 +40,7 @@ The main functionality is implemented in the `executor` package:
 6. Add unit tests for the executor package [DONE]
 7. Set up CI/CD pipeline for automated testing and deployment
 8. Create a user interface for code submission and result display
-9. Implement rate limiting to prevent abuse
+9. Implement rate limiting to prevent abuse [DONE]
 10. Add a caching mechanism for frequently executed code snippets
 11. Implement a sandboxing solution for additional security (e.g., gVisor)
 12. Add support for file I/O within the container (with proper restrictions)
